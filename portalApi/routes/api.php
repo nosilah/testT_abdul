@@ -14,12 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('login', [\App\Http\Controllers\Auth\AuthController::class, 'login']);
 Route::post('registration', [\App\Http\Controllers\Auth\RegistrationController::class, 'registration']);
 
 Route::get('/fucm', [\App\Http\Controllers\HomeController::class, 'index'])->name('unsubscribe');
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('auth/email-authenticate/{token}', [
+    \App\Http\Controllers\Auth\AuthController::class, 'authenticateEmail'
+])->name('auth.email-authenticate');
